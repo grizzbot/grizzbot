@@ -9,7 +9,7 @@
 #define ENTRY_STATE entry
 #define NULL_STATE nas
 
-enum state_codes { entry, foo, bar, end, nas};
+enum state_codes { entry, drive, turnaround, end, nas};
 
 enum ret_codes { ok, fail, repeat, narc};
 struct transition {
@@ -26,7 +26,7 @@ enum state_codes lookup_transitions(
 	enum ret_codes last_state_ret_code);
 
 int entry_state(void);
-int foo_state(void);
-int bar_state(void);
+int drive_state(void);
+int turnaround_state(void);
 int exit_state(void);
 

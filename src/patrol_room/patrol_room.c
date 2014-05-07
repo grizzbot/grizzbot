@@ -17,7 +17,7 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include "oi.h"
-
+#include "sm.h"
 
 // Constants
 #define RESET_SONG 0
