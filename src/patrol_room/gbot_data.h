@@ -24,3 +24,13 @@ typedef struct gbot_motion_t
 } gbot_motion_t;
 
 extern volatile gbot_motion_t gbot_motion;
+
+
+
+typedef struct gbot_timer_t
+{
+	uint8_t is_on;
+	uint16_t count;
+} gbot_timer_t;
+
+extern volatile gbot_timer_t gbot_timer;

@@ -3,10 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <CUnit/Basic.h>
-#include "gbst_statemachine.h"
 
-/* Pointer to the file used by the tests. */
-static FILE* temp_file = NULL;
+#include "gbotut_data_test.h"
+#include "gbstut_statemachine_test.h"
 
 /* The suite initialization function.
  *   * Returns zero on success, non-zero otherwise.
@@ -25,25 +24,6 @@ int clean_suite1(void)
    return 0;
 }
 
-/* Simple test of fprintf().
- *  * Writes test data to the temporary file and checks
- *   * whether the expected number of bytes were written.
- *    */
-void test_StateMachine(void)
-{
-    enum state_codes cur_state = ENTRY_STATE;
-    enum ret_codes rc;
-    int (* state_fun)(void);
-    CU_ASSERT(0 == 0)
-}
-
-void test_StateMachineFail(void)
-{
-    enum state_codes cur_state = ENTRY_STATE;
-    enum ret_codes rc;
-    int (* state_fun)(void);
-    CU_ASSERT(0 == 1)
-}
 
 
 /* The main() function for setting up and running the tests.
@@ -65,10 +45,14 @@ int main()
       return CU_get_error();
    }
 
+
    /* add the tests to the suite */
-   /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-   if ((NULL == CU_add_test(pSuite, "test pass", test_StateMachine)) ||
-       (NULL == CU_add_test(pSuite, "test fail", test_StateMachineFail)))
+   if (
+	CU_ADD_TEST(pSuite, gbotut_DataInitTest) ||
+	CU_ADD_TEST(pSuite, gbstut_StateMachineTest) ||
+	CU_ADD_TEST(pSuite, gbstut_StateMachineTestFail) ||
+	NULL //for copy and paste above line purposes
+	)
    {
       CU_cleanup_registry();
       return CU_get_error();

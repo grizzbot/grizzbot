@@ -1,0 +1,2 @@
+
+void gbotut_DataInitTest();

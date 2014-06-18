@@ -60,7 +60,7 @@ TARGET = patrol_room
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c sm.c
+SRC = $(TARGET).c gbot_common.c gbot_data.c gbst_statemachine.c
 
 
 # List Assembler source files here.

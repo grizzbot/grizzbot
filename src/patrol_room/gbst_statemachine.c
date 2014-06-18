@@ -4,7 +4,7 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include "oi.h"
-#include "sm.h"
+#include "gbst_statemachine.h"
 
 /* array and enum below must be in sync! */
 int (* state[])(void) = { entry_state, foo_state, bar_state, exit_state};
