@@ -1,29 +1,26 @@
 
 // Includes
-#include <avr/interrupt.h>
-#include <avr/io.h>
 #include <stdlib.h>
-#include "oi.h"
 #include "gbst_statemachine.h"
 
 /* array and enum below must be in sync! */
-int (* state[])(void) = { entry_state, foo_state, bar_state, exit_state};
+int (* state[])(void) = { entry_state, turnaround_state, drive_state, exit_state};
 
 /* transitions from end state aren't needed */
 struct transition state_transitions[] = {
-    {entry, ok,     foo},
+    {entry, ok,     drive},
     {entry, fail,   end},
-    {foo,   ok,     bar},
-    {foo,   fail,   end},
-    {foo,   repeat, foo},
-    {bar,   ok,     end},
-    {bar,   fail,   end},
-    {bar,   repeat, foo},
+    {drive,   ok,     turnaround},
+    {drive,   fail,   end},
+    {drive,   repeat, drive},
+    {turnaround,   ok,     drive},
+    {turnaround,   fail,   end},
+    {turnaround,   repeat, turnaround},
     {nas,   narc,   nas }};
 
 int entry_state(void){return 0;}
-int foo_state(void){return 0;}
-int bar_state(void){return 0;}
+int turnaround_state(void){return 0;}
+int drive_state(void){return 0;}
 int exit_state(void){return 0;}
 
 enum state_codes lookup_transitions( 
