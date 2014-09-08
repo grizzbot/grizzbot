@@ -61,7 +61,7 @@ TARGET = patrol_room
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c gbot_common.c gbot_data.c gbst_statemachine.c gbot_interface.c
-
+TEST_SRC:= $(wildcard *_test*.c)
 
 # List Assembler source files here.
 #     Make them always end in a capital .S.  Files ending in a lowercase .s
@@ -299,6 +299,7 @@ MSG_CLEANING = Cleaning project:
 
 # Define all object files.
 OBJ = $(SRC:.c=.o) $(ASRC:.S=.o) 
+TEST_OBJ = $(TEST_SRC:.c=.o) $(ASRC:.S=.o) 
 
 # Define all listing files.
 LST = $(SRC:.c=.lst) $(ASRC:.S=.lst) 
@@ -329,6 +330,16 @@ lss: $(TARGET).lss
 sym: $(TARGET).sym
 
 
+test: begin gccversion test_obj end
+	@echo
+	@echo $(TEST_SRC)
+	@echo
+	@echo $(TEST_OBJ)
+
+test_obj: CC = gcc
+test_obj: ALL_CFLAGS = -I. -I/usr/include $(CFLAGS) $(GENDEPFLAGS)
+test_obj: ALL_ASFLAGS = -I. -I/usr/include -x assembler-with-cpp $(ASFLAGS)
+test_obj: $(TEST_OBJ)
 
 # Eye candy.
 # AVR Studio 3.x does not check make's exit code but relies on
@@ -365,7 +376,7 @@ gccversion :
 
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+	sudo $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 
 # Generate avr-gdb config/init file which does the following:
